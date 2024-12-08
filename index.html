@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPG Character Builder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="https://cdn.hax.cloud/@haxtheweb/rpg-character/rpg-character.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/wired-elements"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Character Panel -->
+    <div class="character-panel">
+      <h2>Character Preview</h2>
+      <rpg-character id="rpg-character" seed="1234567899" width="300" height="300"></rpg-character>
+      <p>Seed: <span id="character-seed">1234567899</span></p>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="controls-panel">
+      <h2>Customize Character</h2>
+      <table>
+        <tr>
+          <td>Accessories</td>
+          <td><wired-slider id="accessories" min="0" max="9" value="1"></wired-slider></td>
+        </tr>
+        <tr>
+          <td>Base</td>
+          <td><wired-slider id="base" min="1" max="5" value="1"></wired-slider></td>
+        </tr>
+        <tr>
+          <td>Face</td>
+          <td><wired-slider id="face" min="0" max="5" value="0"></wired-slider></td>
+        </tr>
+        <tr>
+          <td>Hair</td>
+          <td><wired-slider id="hair" min="0" max="9" value="1"></wired-slider></td>
+        </tr>
+        <tr>
+          <td>Shirt</td>
+          <td><wired-slider id="shirt" min="0" max="9" value="1"></wired-slider></td>
+        </tr>
+        <tr>
+          <td>Skin</td>
+          <td><wired-slider id="skin" min="0" max="9" value="1"></wired-slider></td>
+        </tr>
+        <tr>
+          <td>Hat</td>
+          <td>
+            <wired-combo id="hat" selected="none">
+              <wired-item value="none">None</wired-item>
+              <wired-item value="bunny">Bunny</wired-item>
+              <wired-item value="pirate">Pirate</wired-item>
+              <wired-item value="cowboy">Cowboy</wired-item>
+            </wired-combo>
+          </td>
+        </tr>
+        <tr>
+          <td>On Fire</td>
+          <td><wired-checkbox id="fire"></wired-checkbox></td>
+        </tr>
+        <tr>
+          <td>Walking</td>
+          <td><wired-checkbox id="walking"></wired-checkbox></td>
+        </tr>
+      </table>
+      <div class="share-container">
+        <button class="share-link" id="share">Share Character</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
