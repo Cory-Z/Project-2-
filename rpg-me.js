@@ -31,7 +31,7 @@ class CharacterBuilder extends LitElement {
       walking: false,
       circle: false,
     };
-    this.seed = "1111111111"; // Default seed
+    this.seed = "0000000000";
     this.updateCharacterFromSeed();
   }
 
@@ -39,36 +39,43 @@ class CharacterBuilder extends LitElement {
     return css`
       :host {
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
-        gap: 20px;
-        font-family: "Arial", sans-serif;
         padding: 20px;
+        font-family: Arial, sans-serif;
       }
-
+  
       .character-preview {
         flex: 1;
         max-width: 400px;
         text-align: center;
       }
-
+  
       .controls {
         flex: 2;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        padding-left: 20px;
       }
-
+  
+      label {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+  
       wired-slider,
-      wired-input,
+      
       wired-checkbox,
       wired-button {
         display: block;
         margin: 10px 0;
       }
-
+  
       .seed-display {
         margin-top: 10px;
-        font-size: 1rem;
+        font-size: 1.2rem;
         font-weight: bold;
         color: #333;
       }

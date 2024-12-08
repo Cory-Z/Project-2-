@@ -1,5 +1,5 @@
 import { html, fixture, expect } from '@open-wc/testing';
-import "../my-character.js";
+import "../rpg-me.js";
 
 describe("MyCharacter test", () => {
   let element;
