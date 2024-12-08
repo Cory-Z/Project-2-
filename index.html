@@ -4,16 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RPG Character Builder</title>
-  <link rel="stylesheet" href="styles.css">
-  <script type="module" src="https://cdn.hax.cloud/@haxtheweb/rpg-character/rpg-character.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/wired-elements@latest/dist/wired-elements.bundled.js"></script>
+
+  <script type="module" src="./webcomponents/elements/rpg-character/rpg-character.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .character-panel,
+    .controls-panel {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    .character-panel {
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    rpg-character {
+      display: block;
+      width: 300px;
+      height: 300px;
+      background: #eee;
+    }
+
+    p {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 10px 5px;
+      vertical-align: middle;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .share-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <!-- Character Panel -->
     <div class="character-panel">
       <h2>Character Preview</h2>
-      <rpg-character id="rpg-character" seed="1234567899" width="300" height="300"></rpg-character>
+      <rpg-character
+        id="rpg-character"
+        seed="1234567899"
+        accessories="0"
+        base="1"
+        face="0"
+        hair="0"
+        pants="0"
+        shirt="0"
+        skin="0"
+        hat="none"
+        fire="false"
+        walking="false"
+        width="300"
+        height="300"
+      ></rpg-character>
       <p>Seed: <span id="character-seed">1234567899</span></p>
     </div>
 
@@ -23,119 +104,83 @@
       <table>
         <tr>
           <td>Accessories</td>
-          <td><wired-slider id="accessories" min="0" max="9" value="1"></wired-slider></td>
+          <td><input type="range" id="accessories" min="0" max="9" value="0"></td>
         </tr>
         <tr>
           <td>Base</td>
-          <td><wired-slider id="base" min="1" max="5" value="1"></wired-slider></td>
+          <td><input type="range" id="base" min="0" max="1" value="1"></td>
         </tr>
         <tr>
           <td>Face</td>
-          <td><wired-slider id="face" min="0" max="5" value="0"></wired-slider></td>
+          <td><input type="range" id="face" min="0" max="5" value="0"></td>
         </tr>
         <tr>
           <td>Hair</td>
-          <td><wired-slider id="hair" min="0" max="9" value="1"></wired-slider></td>
+          <td><input type="range" id="hair" min="0" max="9" value="0"></td>
+        </tr>
+        <tr>
+          <td>Pants</td>
+          <td><input type="range" id="pants" min="0" max="9" value="0"></td>
         </tr>
         <tr>
           <td>Shirt</td>
-          <td><wired-slider id="shirt" min="0" max="9" value="1"></wired-slider></td>
+          <td><input type="range" id="shirt" min="0" max="9" value="0"></td>
         </tr>
         <tr>
           <td>Skin</td>
-          <td><wired-slider id="skin" min="0" max="9" value="1"></wired-slider></td>
-        </tr>
-        <tr>
-          <td>Hat</td>
-          <td>
-            <wired-combo id="hat" selected="none">
-              <wired-item value="none">None</wired-item>
-              <wired-item value="bunny">Bunny</wired-item>
-              <wired-item value="pirate">Pirate</wired-item>
-              <wired-item value="cowboy">Cowboy</wired-item>
-            </wired-combo>
-          </td>
-        </tr>
-        <tr>
-          <td>On Fire</td>
-          <td><wired-checkbox id="fire"></wired-checkbox></td>
-        </tr>
-        <tr>
-          <td>Walking</td>
-          <td><wired-checkbox id="walking"></wired-checkbox></td>
+          <td><input type="range" id="skin" min="0" max="9" value="0"></td>
         </tr>
       </table>
       <div class="share-container">
-        <wired-button id="share">Share Character</wired-button>
+        <button id="share">Share Character</button>
       </div>
     </div>
   </div>
+
   <script>
-    // JavaScript to handle character customization and sharing
-
-    // Select elements
     const character = document.getElementById("rpg-character");
-    const seedDisplay = document.getElementById("character-seed");
-    const inputs = {
-      accessories: document.getElementById("accessories"),
-      base: document.getElementById("base"),
-      face: document.getElementById("face"),
-      hair: document.getElementById("hair"),
-      shirt: document.getElementById("shirt"),
-      skin: document.getElementById("skin"),
-      hat: document.getElementById("hat"),
-      fire: document.getElementById("fire"),
-      walking: document.getElementById("walking"),
-    };
-
-    // Update character preview
-    function updateCharacter() {
-      const seed =
-        inputs.accessories.value +
-        inputs.base.value +
-        inputs.face.value +
-        inputs.hair.value +
-        inputs.shirt.value +
-        inputs.skin.value;
-      
-      character.setAttribute("seed", seed);
-      character.setAttribute("hat", inputs.hat.selected);
-      character.setAttribute("fire", inputs.fire.checked);
-      character.setAttribute("walking", inputs.walking.checked);
-      
-      seedDisplay.textContent = seed;
+  
+    // Update function for all inputs
+    function updateCharacterAttribute(id, attribute) {
+      const input = document.getElementById(id);
+      input.addEventListener("input", (e) => {
+        const value = e.target.value;
+        console.log(`${attribute} updated to:`, value);
+        character.setAttribute(attribute, value);
+      });
     }
-
-    // Add event listeners to inputs
-    Object.values(inputs).forEach((input) =>
-      input.addEventListener("change", updateCharacter)
-    );
-
-    // Share character link
+  
+    // Attach listeners to all character properties
+    updateCharacterAttribute("accessories", "accessories");
+    updateCharacterAttribute("base", "base");
+    updateCharacterAttribute("face", "face");
+    updateCharacterAttribute("hair", "hair");
+    updateCharacterAttribute("pants", "pants");
+    updateCharacterAttribute("shirt", "shirt");
+    updateCharacterAttribute("skin", "skin");
+  
+    // Share button functionality
     document.getElementById("share").addEventListener("click", () => {
       const params = new URLSearchParams({
         seed: character.getAttribute("seed"),
-        hat: character.getAttribute("hat"),
-        fire: character.getAttribute("fire"),
-        walking: character.getAttribute("walking"),
+        accessories: character.getAttribute("accessories"),
+        base: character.getAttribute("base"),
+        face: character.getAttribute("face"),
+        hair: character.getAttribute("hair"),
+        pants: character.getAttribute("pants"),
+        shirt: character.getAttribute("shirt"),
+        skin: character.getAttribute("skin"),
       });
-      
+  
       const shareURL = `${window.location.origin}${window.location.pathname}?${params}`;
       
       navigator.clipboard.writeText(shareURL).then(() => {
-        alert(`Character URL copied to clipboard: ${shareURL}`);
+        alert(`Character URL copied: ${shareURL}`);
       });
     });
-
-    // Load character from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("seed")) {
-      character.setAttribute("seed", urlParams.get("seed"));
-      inputs.hat.selected = urlParams.get("hat") || "none";
-      inputs.fire.checked = urlParams.get("fire") === "true";
-      inputs.walking.checked = urlParams.get("walking") === "true";
-      seedDisplay.textContent = urlParams.get("seed");
-    }
+  
+    // Log the status of the custom element
+    console.log(customElements.get('rpg-character')); // Add this line here
   </script>
 </body>
 </html>
