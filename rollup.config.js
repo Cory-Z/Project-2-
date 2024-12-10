@@ -3,7 +3,7 @@ import babel from '@rollup/plugin-babel';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import esbuild from 'rollup-plugin-esbuild';
-import { terser } from '@rollup/plugin-terser'; // Add for additional minification
+import terser from '@rollup/plugin-terser'; // Add for additional minification
 
 export default {
   input: 'index.html', // Ensure this file exists and is correct
